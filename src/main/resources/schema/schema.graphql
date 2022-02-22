@@ -1,0 +1,6515 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+type Actor implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  actorId: Int!
+  firstName: String!
+  lastName: String!
+  lastUpdate: Datetime!
+
+  """Reads and enables pagination through a set of `FilmActor`."""
+  filmActorsByActorId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmActor`."""
+    orderBy: [FilmActorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmActorCondition
+  ): FilmActorsConnection!
+}
+
+"""
+A condition to be used against `Actor` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input ActorCondition {
+  """Checks for equality with the object’s `actorId` field."""
+  actorId: Int
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+type ActorInfo {
+  actorId: Int
+  firstName: String
+  lastName: String
+  filmInfo: String
+}
+
+"""
+A condition to be used against `ActorInfo` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input ActorInfoCondition {
+  """Checks for equality with the object’s `actorId` field."""
+  actorId: Int
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `filmInfo` field."""
+  filmInfo: String
+}
+
+"""A connection to a list of `ActorInfo` values."""
+type ActorInfosConnection {
+  """A list of `ActorInfo` objects."""
+  nodes: [ActorInfo]!
+
+  """
+  A list of edges which contains the `ActorInfo` and cursor to aid in pagination.
+  """
+  edges: [ActorInfosEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `ActorInfo` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `ActorInfo` edge in the connection."""
+type ActorInfosEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `ActorInfo` at the end of the edge."""
+  node: ActorInfo
+}
+
+"""Methods to use when ordering `ActorInfo`."""
+enum ActorInfosOrderBy {
+  NATURAL
+  ACTOR_ID_ASC
+  ACTOR_ID_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  FILM_INFO_ASC
+  FILM_INFO_DESC
+}
+
+"""An input for mutations affecting `Actor`"""
+input ActorInput {
+  actorId: Int
+  firstName: String!
+  lastName: String!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Actor`. Fields that are set will be updated.
+"""
+input ActorPatch {
+  actorId: Int
+  firstName: String
+  lastName: String
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `Actor` values."""
+type ActorsConnection {
+  """A list of `Actor` objects."""
+  nodes: [Actor]!
+
+  """
+  A list of edges which contains the `Actor` and cursor to aid in pagination.
+  """
+  edges: [ActorsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Actor` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Actor` edge in the connection."""
+type ActorsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Actor` at the end of the edge."""
+  node: Actor
+}
+
+"""Methods to use when ordering `Actor`."""
+enum ActorsOrderBy {
+  NATURAL
+  ACTOR_ID_ASC
+  ACTOR_ID_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Address implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  addressId: Int!
+  address: String!
+  address2: String
+  district: String!
+  cityId: Int!
+  postalCode: String
+  phone: String!
+  lastUpdate: Datetime!
+
+  """Reads a single `City` that is related to this `Address`."""
+  cityByCityId: City
+
+  """Reads and enables pagination through a set of `Customer`."""
+  customersByAddressId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Customer`."""
+    orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CustomerCondition
+  ): CustomersConnection!
+
+  """Reads and enables pagination through a set of `Staff`."""
+  staffByAddressId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Staff`."""
+    orderBy: [StaffOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StaffCondition
+  ): StaffConnection!
+
+  """Reads and enables pagination through a set of `Store`."""
+  storesByAddressId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Store`."""
+    orderBy: [StoresOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StoreCondition
+  ): StoresConnection!
+}
+
+"""
+A condition to be used against `Address` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AddressCondition {
+  """Checks for equality with the object’s `addressId` field."""
+  addressId: Int
+
+  """Checks for equality with the object’s `address` field."""
+  address: String
+
+  """Checks for equality with the object’s `address2` field."""
+  address2: String
+
+  """Checks for equality with the object’s `district` field."""
+  district: String
+
+  """Checks for equality with the object’s `cityId` field."""
+  cityId: Int
+
+  """Checks for equality with the object’s `postalCode` field."""
+  postalCode: String
+
+  """Checks for equality with the object’s `phone` field."""
+  phone: String
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `Address` values."""
+type AddressesConnection {
+  """A list of `Address` objects."""
+  nodes: [Address]!
+
+  """
+  A list of edges which contains the `Address` and cursor to aid in pagination.
+  """
+  edges: [AddressesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Address` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Address` edge in the connection."""
+type AddressesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Address` at the end of the edge."""
+  node: Address
+}
+
+"""Methods to use when ordering `Address`."""
+enum AddressesOrderBy {
+  NATURAL
+  ADDRESS_ID_ASC
+  ADDRESS_ID_DESC
+  ADDRESS_ASC
+  ADDRESS_DESC
+  ADDRESS2_ASC
+  ADDRESS2_DESC
+  DISTRICT_ASC
+  DISTRICT_DESC
+  CITY_ID_ASC
+  CITY_ID_DESC
+  POSTAL_CODE_ASC
+  POSTAL_CODE_DESC
+  PHONE_ASC
+  PHONE_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""An input for mutations affecting `Address`"""
+input AddressInput {
+  addressId: Int
+  address: String!
+  address2: String
+  district: String!
+  cityId: Int!
+  postalCode: String
+  phone: String!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Address`. Fields that are set will be updated.
+"""
+input AddressPatch {
+  addressId: Int
+  address: String
+  address2: String
+  district: String
+  cityId: Int
+  postalCode: String
+  phone: String
+  lastUpdate: Datetime
+}
+
+"""
+A floating point number that requires more precision than IEEE 754 binary 64
+"""
+scalar BigFloat
+
+"""A connection to a list of `Category` values."""
+type CategoriesConnection {
+  """A list of `Category` objects."""
+  nodes: [Category]!
+
+  """
+  A list of edges which contains the `Category` and cursor to aid in pagination.
+  """
+  edges: [CategoriesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Category` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Category` edge in the connection."""
+type CategoriesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Category` at the end of the edge."""
+  node: Category
+}
+
+"""Methods to use when ordering `Category`."""
+enum CategoriesOrderBy {
+  NATURAL
+  CATEGORY_ID_ASC
+  CATEGORY_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Category implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  categoryId: Int!
+  name: String!
+  lastUpdate: Datetime!
+
+  """Reads and enables pagination through a set of `FilmCategory`."""
+  filmCategoriesByCategoryId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmCategory`."""
+    orderBy: [FilmCategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmCategoryCondition
+  ): FilmCategoriesConnection!
+}
+
+"""
+A condition to be used against `Category` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input CategoryCondition {
+  """Checks for equality with the object’s `categoryId` field."""
+  categoryId: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `Category`"""
+input CategoryInput {
+  categoryId: Int
+  name: String!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Category`. Fields that are set will be updated.
+"""
+input CategoryPatch {
+  categoryId: Int
+  name: String
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `City` values."""
+type CitiesConnection {
+  """A list of `City` objects."""
+  nodes: [City]!
+
+  """
+  A list of edges which contains the `City` and cursor to aid in pagination.
+  """
+  edges: [CitiesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `City` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `City` edge in the connection."""
+type CitiesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `City` at the end of the edge."""
+  node: City
+}
+
+"""Methods to use when ordering `City`."""
+enum CitiesOrderBy {
+  NATURAL
+  CITY_ID_ASC
+  CITY_ID_DESC
+  CITY_ASC
+  CITY_DESC
+  COUNTRY_ID_ASC
+  COUNTRY_ID_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type City implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  cityId: Int!
+  city: String!
+  countryId: Int!
+  lastUpdate: Datetime!
+
+  """Reads a single `Country` that is related to this `City`."""
+  countryByCountryId: Country
+
+  """Reads and enables pagination through a set of `Address`."""
+  addressesByCityId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Address`."""
+    orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AddressCondition
+  ): AddressesConnection!
+}
+
+"""
+A condition to be used against `City` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input CityCondition {
+  """Checks for equality with the object’s `cityId` field."""
+  cityId: Int
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `countryId` field."""
+  countryId: Int
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `City`"""
+input CityInput {
+  cityId: Int
+  city: String!
+  countryId: Int!
+  lastUpdate: Datetime
+}
+
+"""Represents an update to a `City`. Fields that are set will be updated."""
+input CityPatch {
+  cityId: Int
+  city: String
+  countryId: Int
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `Country` values."""
+type CountriesConnection {
+  """A list of `Country` objects."""
+  nodes: [Country]!
+
+  """
+  A list of edges which contains the `Country` and cursor to aid in pagination.
+  """
+  edges: [CountriesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Country` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Country` edge in the connection."""
+type CountriesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Country` at the end of the edge."""
+  node: Country
+}
+
+"""Methods to use when ordering `Country`."""
+enum CountriesOrderBy {
+  NATURAL
+  COUNTRY_ID_ASC
+  COUNTRY_ID_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Country implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  countryId: Int!
+  country: String!
+  lastUpdate: Datetime!
+
+  """Reads and enables pagination through a set of `City`."""
+  citiesByCountryId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `City`."""
+    orderBy: [CitiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CityCondition
+  ): CitiesConnection!
+}
+
+"""
+A condition to be used against `Country` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input CountryCondition {
+  """Checks for equality with the object’s `countryId` field."""
+  countryId: Int
+
+  """Checks for equality with the object’s `country` field."""
+  country: String
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `Country`"""
+input CountryInput {
+  countryId: Int
+  country: String!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Country`. Fields that are set will be updated.
+"""
+input CountryPatch {
+  countryId: Int
+  country: String
+  lastUpdate: Datetime
+}
+
+"""All input for the create `Actor` mutation."""
+input CreateActorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Actor` to be created by this mutation."""
+  actor: ActorInput!
+}
+
+"""The output of our create `Actor` mutation."""
+type CreateActorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Actor` that was created by this mutation."""
+  actor: Actor
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Actor`. May be used by Relay 1."""
+  actorEdge(
+    """The method to use when ordering `Actor`."""
+    orderBy: [ActorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActorsEdge
+}
+
+"""All input for the create `Address` mutation."""
+input CreateAddressInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Address` to be created by this mutation."""
+  address: AddressInput!
+}
+
+"""The output of our create `Address` mutation."""
+type CreateAddressPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Address` that was created by this mutation."""
+  address: Address
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `City` that is related to this `Address`."""
+  cityByCityId: City
+
+  """An edge for our `Address`. May be used by Relay 1."""
+  addressEdge(
+    """The method to use when ordering `Address`."""
+    orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AddressesEdge
+}
+
+"""All input for the create `Category` mutation."""
+input CreateCategoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Category` to be created by this mutation."""
+  category: CategoryInput!
+}
+
+"""The output of our create `Category` mutation."""
+type CreateCategoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Category` that was created by this mutation."""
+  category: Category
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Category`. May be used by Relay 1."""
+  categoryEdge(
+    """The method to use when ordering `Category`."""
+    orderBy: [CategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CategoriesEdge
+}
+
+"""All input for the create `City` mutation."""
+input CreateCityInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `City` to be created by this mutation."""
+  city: CityInput!
+}
+
+"""The output of our create `City` mutation."""
+type CreateCityPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `City` that was created by this mutation."""
+  city: City
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Country` that is related to this `City`."""
+  countryByCountryId: Country
+
+  """An edge for our `City`. May be used by Relay 1."""
+  cityEdge(
+    """The method to use when ordering `City`."""
+    orderBy: [CitiesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CitiesEdge
+}
+
+"""All input for the create `Country` mutation."""
+input CreateCountryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Country` to be created by this mutation."""
+  country: CountryInput!
+}
+
+"""The output of our create `Country` mutation."""
+type CreateCountryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Country` that was created by this mutation."""
+  country: Country
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Country`. May be used by Relay 1."""
+  countryEdge(
+    """The method to use when ordering `Country`."""
+    orderBy: [CountriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CountriesEdge
+}
+
+"""All input for the create `Customer` mutation."""
+input CreateCustomerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Customer` to be created by this mutation."""
+  customer: CustomerInput!
+}
+
+"""The output of our create `Customer` mutation."""
+type CreateCustomerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Customer` that was created by this mutation."""
+  customer: Customer
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Address` that is related to this `Customer`."""
+  addressByAddressId: Address
+
+  """An edge for our `Customer`. May be used by Relay 1."""
+  customerEdge(
+    """The method to use when ordering `Customer`."""
+    orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CustomersEdge
+}
+
+"""All input for the create `FilmActor` mutation."""
+input CreateFilmActorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `FilmActor` to be created by this mutation."""
+  filmActor: FilmActorInput!
+}
+
+"""The output of our create `FilmActor` mutation."""
+type CreateFilmActorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `FilmActor` that was created by this mutation."""
+  filmActor: FilmActor
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Actor` that is related to this `FilmActor`."""
+  actorByActorId: Actor
+
+  """Reads a single `Film` that is related to this `FilmActor`."""
+  filmByFilmId: Film
+
+  """An edge for our `FilmActor`. May be used by Relay 1."""
+  filmActorEdge(
+    """The method to use when ordering `FilmActor`."""
+    orderBy: [FilmActorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmActorsEdge
+}
+
+"""All input for the create `FilmCategory` mutation."""
+input CreateFilmCategoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `FilmCategory` to be created by this mutation."""
+  filmCategory: FilmCategoryInput!
+}
+
+"""The output of our create `FilmCategory` mutation."""
+type CreateFilmCategoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `FilmCategory` that was created by this mutation."""
+  filmCategory: FilmCategory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Film` that is related to this `FilmCategory`."""
+  filmByFilmId: Film
+
+  """Reads a single `Category` that is related to this `FilmCategory`."""
+  categoryByCategoryId: Category
+
+  """An edge for our `FilmCategory`. May be used by Relay 1."""
+  filmCategoryEdge(
+    """The method to use when ordering `FilmCategory`."""
+    orderBy: [FilmCategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmCategoriesEdge
+}
+
+"""All input for the create `Film` mutation."""
+input CreateFilmInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Film` to be created by this mutation."""
+  film: FilmInput!
+}
+
+"""The output of our create `Film` mutation."""
+type CreateFilmPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Film` that was created by this mutation."""
+  film: Film
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Language` that is related to this `Film`."""
+  languageByLanguageId: Language
+
+  """An edge for our `Film`. May be used by Relay 1."""
+  filmEdge(
+    """The method to use when ordering `Film`."""
+    orderBy: [FilmsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmsEdge
+}
+
+"""All input for the create `Inventory` mutation."""
+input CreateInventoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Inventory` to be created by this mutation."""
+  inventory: InventoryInput!
+}
+
+"""The output of our create `Inventory` mutation."""
+type CreateInventoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Inventory` that was created by this mutation."""
+  inventory: Inventory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Film` that is related to this `Inventory`."""
+  filmByFilmId: Film
+
+  """An edge for our `Inventory`. May be used by Relay 1."""
+  inventoryEdge(
+    """The method to use when ordering `Inventory`."""
+    orderBy: [InventoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InventoriesEdge
+}
+
+"""All input for the create `Language` mutation."""
+input CreateLanguageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Language` to be created by this mutation."""
+  language: LanguageInput!
+}
+
+"""The output of our create `Language` mutation."""
+type CreateLanguagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Language` that was created by this mutation."""
+  language: Language
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Language`. May be used by Relay 1."""
+  languageEdge(
+    """The method to use when ordering `Language`."""
+    orderBy: [LanguagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): LanguagesEdge
+}
+
+"""All input for the create `Payment` mutation."""
+input CreatePaymentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Payment` to be created by this mutation."""
+  payment: PaymentInput!
+}
+
+"""The output of our create `Payment` mutation."""
+type CreatePaymentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Payment` that was created by this mutation."""
+  payment: Payment
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Customer` that is related to this `Payment`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Payment`."""
+  staffByStaffId: Staff
+
+  """Reads a single `Rental` that is related to this `Payment`."""
+  rentalByRentalId: Rental
+
+  """An edge for our `Payment`. May be used by Relay 1."""
+  paymentEdge(
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PaymentsEdge
+}
+
+"""All input for the create `Rental` mutation."""
+input CreateRentalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Rental` to be created by this mutation."""
+  rental: RentalInput!
+}
+
+"""The output of our create `Rental` mutation."""
+type CreateRentalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Rental` that was created by this mutation."""
+  rental: Rental
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Inventory` that is related to this `Rental`."""
+  inventoryByInventoryId: Inventory
+
+  """Reads a single `Customer` that is related to this `Rental`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Rental`."""
+  staffByStaffId: Staff
+
+  """An edge for our `Rental`. May be used by Relay 1."""
+  rentalEdge(
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RentalsEdge
+}
+
+"""All input for the create `Staff` mutation."""
+input CreateStaffInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Staff` to be created by this mutation."""
+  staff: StaffInput!
+}
+
+"""The output of our create `Staff` mutation."""
+type CreateStaffPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Staff` that was created by this mutation."""
+  staff: Staff
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Address` that is related to this `Staff`."""
+  addressByAddressId: Address
+
+  """An edge for our `Staff`. May be used by Relay 1."""
+  staffEdge(
+    """The method to use when ordering `Staff`."""
+    orderBy: [StaffOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StaffEdge
+}
+
+"""All input for the create `Store` mutation."""
+input CreateStoreInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Store` to be created by this mutation."""
+  store: StoreInput!
+}
+
+"""The output of our create `Store` mutation."""
+type CreateStorePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Store` that was created by this mutation."""
+  store: Store
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Staff` that is related to this `Store`."""
+  staffByManagerStaffId: Staff
+
+  """Reads a single `Address` that is related to this `Store`."""
+  addressByAddressId: Address
+
+  """An edge for our `Store`. May be used by Relay 1."""
+  storeEdge(
+    """The method to use when ordering `Store`."""
+    orderBy: [StoresOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StoresEdge
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+type Customer implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  customerId: Int!
+  storeId: Int!
+  firstName: String!
+  lastName: String!
+  email: String
+  addressId: Int!
+  activebool: Boolean!
+  createDate: Date!
+  lastUpdate: Datetime
+  active: Int
+
+  """Reads a single `Address` that is related to this `Customer`."""
+  addressByAddressId: Address
+
+  """Reads and enables pagination through a set of `Payment`."""
+  paymentsByCustomerId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PaymentCondition
+  ): PaymentsConnection!
+
+  """Reads and enables pagination through a set of `Rental`."""
+  rentalsByCustomerId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RentalCondition
+  ): RentalsConnection!
+}
+
+"""
+A condition to be used against `Customer` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input CustomerCondition {
+  """Checks for equality with the object’s `customerId` field."""
+  customerId: Int
+
+  """Checks for equality with the object’s `storeId` field."""
+  storeId: Int
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `email` field."""
+  email: String
+
+  """Checks for equality with the object’s `addressId` field."""
+  addressId: Int
+
+  """Checks for equality with the object’s `activebool` field."""
+  activebool: Boolean
+
+  """Checks for equality with the object’s `createDate` field."""
+  createDate: Date
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+
+  """Checks for equality with the object’s `active` field."""
+  active: Int
+}
+
+"""An input for mutations affecting `Customer`"""
+input CustomerInput {
+  customerId: Int
+  storeId: Int!
+  firstName: String!
+  lastName: String!
+  email: String
+  addressId: Int!
+  activebool: Boolean
+  createDate: Date
+  lastUpdate: Datetime
+  active: Int
+}
+
+type CustomerList {
+  id: Int
+  name: String
+  address: String
+  zipCode: String
+  phone: String
+  city: String
+  country: String
+  notes: String
+  sid: Int
+}
+
+"""
+A condition to be used against `CustomerList` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CustomerListCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `address` field."""
+  address: String
+
+  """Checks for equality with the object’s `zipCode` field."""
+  zipCode: String
+
+  """Checks for equality with the object’s `phone` field."""
+  phone: String
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `country` field."""
+  country: String
+
+  """Checks for equality with the object’s `notes` field."""
+  notes: String
+
+  """Checks for equality with the object’s `sid` field."""
+  sid: Int
+}
+
+"""A connection to a list of `CustomerList` values."""
+type CustomerListsConnection {
+  """A list of `CustomerList` objects."""
+  nodes: [CustomerList]!
+
+  """
+  A list of edges which contains the `CustomerList` and cursor to aid in pagination.
+  """
+  edges: [CustomerListsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `CustomerList` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `CustomerList` edge in the connection."""
+type CustomerListsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CustomerList` at the end of the edge."""
+  node: CustomerList
+}
+
+"""Methods to use when ordering `CustomerList`."""
+enum CustomerListsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  ADDRESS_ASC
+  ADDRESS_DESC
+  ZIP_CODE_ASC
+  ZIP_CODE_DESC
+  PHONE_ASC
+  PHONE_DESC
+  CITY_ASC
+  CITY_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
+  NOTES_ASC
+  NOTES_DESC
+  SID_ASC
+  SID_DESC
+}
+
+"""
+Represents an update to a `Customer`. Fields that are set will be updated.
+"""
+input CustomerPatch {
+  customerId: Int
+  storeId: Int
+  firstName: String
+  lastName: String
+  email: String
+  addressId: Int
+  activebool: Boolean
+  createDate: Date
+  lastUpdate: Datetime
+  active: Int
+}
+
+"""A connection to a list of `Customer` values."""
+type CustomersConnection {
+  """A list of `Customer` objects."""
+  nodes: [Customer]!
+
+  """
+  A list of edges which contains the `Customer` and cursor to aid in pagination.
+  """
+  edges: [CustomersEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Customer` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Customer` edge in the connection."""
+type CustomersEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Customer` at the end of the edge."""
+  node: Customer
+}
+
+"""Methods to use when ordering `Customer`."""
+enum CustomersOrderBy {
+  NATURAL
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  STORE_ID_ASC
+  STORE_ID_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  ADDRESS_ID_ASC
+  ADDRESS_ID_DESC
+  ACTIVEBOOL_ASC
+  ACTIVEBOOL_DESC
+  CREATE_DATE_ASC
+  CREATE_DATE_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  ACTIVE_ASC
+  ACTIVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""The day, does not include a time."""
+scalar Date
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""All input for the `deleteActorByActorId` mutation."""
+input DeleteActorByActorIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  actorId: Int!
+}
+
+"""All input for the `deleteActor` mutation."""
+input DeleteActorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Actor` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Actor` mutation."""
+type DeleteActorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Actor` that was deleted by this mutation."""
+  actor: Actor
+  deletedActorId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Actor`. May be used by Relay 1."""
+  actorEdge(
+    """The method to use when ordering `Actor`."""
+    orderBy: [ActorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActorsEdge
+}
+
+"""All input for the `deleteAddressByAddressId` mutation."""
+input DeleteAddressByAddressIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  addressId: Int!
+}
+
+"""All input for the `deleteAddress` mutation."""
+input DeleteAddressInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Address` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Address` mutation."""
+type DeleteAddressPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Address` that was deleted by this mutation."""
+  address: Address
+  deletedAddressId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `City` that is related to this `Address`."""
+  cityByCityId: City
+
+  """An edge for our `Address`. May be used by Relay 1."""
+  addressEdge(
+    """The method to use when ordering `Address`."""
+    orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AddressesEdge
+}
+
+"""All input for the `deleteCategoryByCategoryId` mutation."""
+input DeleteCategoryByCategoryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  categoryId: Int!
+}
+
+"""All input for the `deleteCategory` mutation."""
+input DeleteCategoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Category` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Category` mutation."""
+type DeleteCategoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Category` that was deleted by this mutation."""
+  category: Category
+  deletedCategoryId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Category`. May be used by Relay 1."""
+  categoryEdge(
+    """The method to use when ordering `Category`."""
+    orderBy: [CategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CategoriesEdge
+}
+
+"""All input for the `deleteCityByCityId` mutation."""
+input DeleteCityByCityIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  cityId: Int!
+}
+
+"""All input for the `deleteCity` mutation."""
+input DeleteCityInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `City` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `City` mutation."""
+type DeleteCityPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `City` that was deleted by this mutation."""
+  city: City
+  deletedCityId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Country` that is related to this `City`."""
+  countryByCountryId: Country
+
+  """An edge for our `City`. May be used by Relay 1."""
+  cityEdge(
+    """The method to use when ordering `City`."""
+    orderBy: [CitiesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CitiesEdge
+}
+
+"""All input for the `deleteCountryByCountryId` mutation."""
+input DeleteCountryByCountryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  countryId: Int!
+}
+
+"""All input for the `deleteCountry` mutation."""
+input DeleteCountryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Country` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Country` mutation."""
+type DeleteCountryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Country` that was deleted by this mutation."""
+  country: Country
+  deletedCountryId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Country`. May be used by Relay 1."""
+  countryEdge(
+    """The method to use when ordering `Country`."""
+    orderBy: [CountriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CountriesEdge
+}
+
+"""All input for the `deleteCustomerByCustomerId` mutation."""
+input DeleteCustomerByCustomerIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  customerId: Int!
+}
+
+"""All input for the `deleteCustomer` mutation."""
+input DeleteCustomerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Customer` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Customer` mutation."""
+type DeleteCustomerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Customer` that was deleted by this mutation."""
+  customer: Customer
+  deletedCustomerId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Address` that is related to this `Customer`."""
+  addressByAddressId: Address
+
+  """An edge for our `Customer`. May be used by Relay 1."""
+  customerEdge(
+    """The method to use when ordering `Customer`."""
+    orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CustomersEdge
+}
+
+"""All input for the `deleteFilmActorByActorIdAndFilmId` mutation."""
+input DeleteFilmActorByActorIdAndFilmIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  actorId: Int!
+  filmId: Int!
+}
+
+"""All input for the `deleteFilmActor` mutation."""
+input DeleteFilmActorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `FilmActor` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `FilmActor` mutation."""
+type DeleteFilmActorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `FilmActor` that was deleted by this mutation."""
+  filmActor: FilmActor
+  deletedFilmActorId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Actor` that is related to this `FilmActor`."""
+  actorByActorId: Actor
+
+  """Reads a single `Film` that is related to this `FilmActor`."""
+  filmByFilmId: Film
+
+  """An edge for our `FilmActor`. May be used by Relay 1."""
+  filmActorEdge(
+    """The method to use when ordering `FilmActor`."""
+    orderBy: [FilmActorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmActorsEdge
+}
+
+"""All input for the `deleteFilmByFilmId` mutation."""
+input DeleteFilmByFilmIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  filmId: Int!
+}
+
+"""All input for the `deleteFilmCategoryByFilmIdAndCategoryId` mutation."""
+input DeleteFilmCategoryByFilmIdAndCategoryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  filmId: Int!
+  categoryId: Int!
+}
+
+"""All input for the `deleteFilmCategory` mutation."""
+input DeleteFilmCategoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `FilmCategory` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `FilmCategory` mutation."""
+type DeleteFilmCategoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `FilmCategory` that was deleted by this mutation."""
+  filmCategory: FilmCategory
+  deletedFilmCategoryId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Film` that is related to this `FilmCategory`."""
+  filmByFilmId: Film
+
+  """Reads a single `Category` that is related to this `FilmCategory`."""
+  categoryByCategoryId: Category
+
+  """An edge for our `FilmCategory`. May be used by Relay 1."""
+  filmCategoryEdge(
+    """The method to use when ordering `FilmCategory`."""
+    orderBy: [FilmCategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmCategoriesEdge
+}
+
+"""All input for the `deleteFilm` mutation."""
+input DeleteFilmInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Film` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Film` mutation."""
+type DeleteFilmPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Film` that was deleted by this mutation."""
+  film: Film
+  deletedFilmId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Language` that is related to this `Film`."""
+  languageByLanguageId: Language
+
+  """An edge for our `Film`. May be used by Relay 1."""
+  filmEdge(
+    """The method to use when ordering `Film`."""
+    orderBy: [FilmsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmsEdge
+}
+
+"""All input for the `deleteInventoryByInventoryId` mutation."""
+input DeleteInventoryByInventoryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  inventoryId: Int!
+}
+
+"""All input for the `deleteInventory` mutation."""
+input DeleteInventoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Inventory` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Inventory` mutation."""
+type DeleteInventoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Inventory` that was deleted by this mutation."""
+  inventory: Inventory
+  deletedInventoryId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Film` that is related to this `Inventory`."""
+  filmByFilmId: Film
+
+  """An edge for our `Inventory`. May be used by Relay 1."""
+  inventoryEdge(
+    """The method to use when ordering `Inventory`."""
+    orderBy: [InventoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InventoriesEdge
+}
+
+"""All input for the `deleteLanguageByLanguageId` mutation."""
+input DeleteLanguageByLanguageIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  languageId: Int!
+}
+
+"""All input for the `deleteLanguage` mutation."""
+input DeleteLanguageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Language` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Language` mutation."""
+type DeleteLanguagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Language` that was deleted by this mutation."""
+  language: Language
+  deletedLanguageId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Language`. May be used by Relay 1."""
+  languageEdge(
+    """The method to use when ordering `Language`."""
+    orderBy: [LanguagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): LanguagesEdge
+}
+
+"""All input for the `deletePaymentByPaymentId` mutation."""
+input DeletePaymentByPaymentIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  paymentId: Int!
+}
+
+"""All input for the `deletePayment` mutation."""
+input DeletePaymentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Payment` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Payment` mutation."""
+type DeletePaymentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Payment` that was deleted by this mutation."""
+  payment: Payment
+  deletedPaymentId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Customer` that is related to this `Payment`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Payment`."""
+  staffByStaffId: Staff
+
+  """Reads a single `Rental` that is related to this `Payment`."""
+  rentalByRentalId: Rental
+
+  """An edge for our `Payment`. May be used by Relay 1."""
+  paymentEdge(
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PaymentsEdge
+}
+
+"""All input for the `deleteRentalByRentalId` mutation."""
+input DeleteRentalByRentalIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rentalId: Int!
+}
+
+"""All input for the `deleteRental` mutation."""
+input DeleteRentalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Rental` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Rental` mutation."""
+type DeleteRentalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Rental` that was deleted by this mutation."""
+  rental: Rental
+  deletedRentalId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Inventory` that is related to this `Rental`."""
+  inventoryByInventoryId: Inventory
+
+  """Reads a single `Customer` that is related to this `Rental`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Rental`."""
+  staffByStaffId: Staff
+
+  """An edge for our `Rental`. May be used by Relay 1."""
+  rentalEdge(
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RentalsEdge
+}
+
+"""All input for the `deleteStaffByStaffId` mutation."""
+input DeleteStaffByStaffIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  staffId: Int!
+}
+
+"""All input for the `deleteStaff` mutation."""
+input DeleteStaffInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Staff` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Staff` mutation."""
+type DeleteStaffPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Staff` that was deleted by this mutation."""
+  staff: Staff
+  deletedStaffId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Address` that is related to this `Staff`."""
+  addressByAddressId: Address
+
+  """An edge for our `Staff`. May be used by Relay 1."""
+  staffEdge(
+    """The method to use when ordering `Staff`."""
+    orderBy: [StaffOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StaffEdge
+}
+
+"""All input for the `deleteStoreByStoreId` mutation."""
+input DeleteStoreByStoreIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  storeId: Int!
+}
+
+"""All input for the `deleteStore` mutation."""
+input DeleteStoreInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Store` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Store` mutation."""
+type DeleteStorePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Store` that was deleted by this mutation."""
+  store: Store
+  deletedStoreId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Staff` that is related to this `Store`."""
+  staffByManagerStaffId: Staff
+
+  """Reads a single `Address` that is related to this `Store`."""
+  addressByAddressId: Address
+
+  """An edge for our `Store`. May be used by Relay 1."""
+  storeEdge(
+    """The method to use when ordering `Store`."""
+    orderBy: [StoresOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StoresEdge
+}
+
+type Film implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  filmId: Int!
+  title: String!
+  description: String
+  releaseYear: Year
+  languageId: Int!
+  rentalDuration: Int!
+  rentalRate: BigFloat!
+  length: Int
+  replacementCost: BigFloat!
+  rating: MpaaRating
+  lastUpdate: Datetime!
+  specialFeatures: [String]
+  fulltext: String!
+
+  """Reads a single `Language` that is related to this `Film`."""
+  languageByLanguageId: Language
+
+  """Reads and enables pagination through a set of `FilmActor`."""
+  filmActorsByFilmId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmActor`."""
+    orderBy: [FilmActorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmActorCondition
+  ): FilmActorsConnection!
+
+  """Reads and enables pagination through a set of `FilmCategory`."""
+  filmCategoriesByFilmId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmCategory`."""
+    orderBy: [FilmCategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmCategoryCondition
+  ): FilmCategoriesConnection!
+
+  """Reads and enables pagination through a set of `Inventory`."""
+  inventoriesByFilmId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Inventory`."""
+    orderBy: [InventoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: InventoryCondition
+  ): InventoriesConnection!
+}
+
+type FilmActor implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  actorId: Int!
+  filmId: Int!
+  lastUpdate: Datetime!
+
+  """Reads a single `Actor` that is related to this `FilmActor`."""
+  actorByActorId: Actor
+
+  """Reads a single `Film` that is related to this `FilmActor`."""
+  filmByFilmId: Film
+}
+
+"""
+A condition to be used against `FilmActor` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input FilmActorCondition {
+  """Checks for equality with the object’s `actorId` field."""
+  actorId: Int
+
+  """Checks for equality with the object’s `filmId` field."""
+  filmId: Int
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `FilmActor`"""
+input FilmActorInput {
+  actorId: Int!
+  filmId: Int!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `FilmActor`. Fields that are set will be updated.
+"""
+input FilmActorPatch {
+  actorId: Int
+  filmId: Int
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `FilmActor` values."""
+type FilmActorsConnection {
+  """A list of `FilmActor` objects."""
+  nodes: [FilmActor]!
+
+  """
+  A list of edges which contains the `FilmActor` and cursor to aid in pagination.
+  """
+  edges: [FilmActorsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `FilmActor` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `FilmActor` edge in the connection."""
+type FilmActorsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `FilmActor` at the end of the edge."""
+  node: FilmActor
+}
+
+"""Methods to use when ordering `FilmActor`."""
+enum FilmActorsOrderBy {
+  NATURAL
+  ACTOR_ID_ASC
+  ACTOR_ID_DESC
+  FILM_ID_ASC
+  FILM_ID_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""A connection to a list of `FilmCategory` values."""
+type FilmCategoriesConnection {
+  """A list of `FilmCategory` objects."""
+  nodes: [FilmCategory]!
+
+  """
+  A list of edges which contains the `FilmCategory` and cursor to aid in pagination.
+  """
+  edges: [FilmCategoriesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `FilmCategory` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `FilmCategory` edge in the connection."""
+type FilmCategoriesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `FilmCategory` at the end of the edge."""
+  node: FilmCategory
+}
+
+"""Methods to use when ordering `FilmCategory`."""
+enum FilmCategoriesOrderBy {
+  NATURAL
+  FILM_ID_ASC
+  FILM_ID_DESC
+  CATEGORY_ID_ASC
+  CATEGORY_ID_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type FilmCategory implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  filmId: Int!
+  categoryId: Int!
+  lastUpdate: Datetime!
+
+  """Reads a single `Film` that is related to this `FilmCategory`."""
+  filmByFilmId: Film
+
+  """Reads a single `Category` that is related to this `FilmCategory`."""
+  categoryByCategoryId: Category
+}
+
+"""
+A condition to be used against `FilmCategory` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input FilmCategoryCondition {
+  """Checks for equality with the object’s `filmId` field."""
+  filmId: Int
+
+  """Checks for equality with the object’s `categoryId` field."""
+  categoryId: Int
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `FilmCategory`"""
+input FilmCategoryInput {
+  filmId: Int!
+  categoryId: Int!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `FilmCategory`. Fields that are set will be updated.
+"""
+input FilmCategoryPatch {
+  filmId: Int
+  categoryId: Int
+  lastUpdate: Datetime
+}
+
+"""
+A condition to be used against `Film` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input FilmCondition {
+  """Checks for equality with the object’s `filmId` field."""
+  filmId: Int
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `releaseYear` field."""
+  releaseYear: Year
+
+  """Checks for equality with the object’s `languageId` field."""
+  languageId: Int
+
+  """Checks for equality with the object’s `rentalDuration` field."""
+  rentalDuration: Int
+
+  """Checks for equality with the object’s `rentalRate` field."""
+  rentalRate: BigFloat
+
+  """Checks for equality with the object’s `length` field."""
+  length: Int
+
+  """Checks for equality with the object’s `replacementCost` field."""
+  replacementCost: BigFloat
+
+  """Checks for equality with the object’s `rating` field."""
+  rating: MpaaRating
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+
+  """Checks for equality with the object’s `specialFeatures` field."""
+  specialFeatures: [String]
+
+  """Checks for equality with the object’s `fulltext` field."""
+  fulltext: String
+}
+
+"""An input for mutations affecting `Film`"""
+input FilmInput {
+  filmId: Int
+  title: String!
+  description: String
+  releaseYear: Year
+  languageId: Int!
+  rentalDuration: Int
+  rentalRate: BigFloat
+  length: Int
+  replacementCost: BigFloat
+  rating: MpaaRating
+  lastUpdate: Datetime
+  specialFeatures: [String]
+  fulltext: String!
+}
+
+"""All input for the `filmInStock` mutation."""
+input FilmInStockInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  pFilmId: Int
+  pStoreId: Int
+}
+
+"""The output of our `filmInStock` mutation."""
+type FilmInStockPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  pFilmCounts: [Int]
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+type FilmList {
+  fid: Int
+  title: String
+  description: String
+  category: String
+  price: BigFloat
+  length: Int
+  rating: MpaaRating
+  actors: String
+}
+
+"""
+A condition to be used against `FilmList` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input FilmListCondition {
+  """Checks for equality with the object’s `fid` field."""
+  fid: Int
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `category` field."""
+  category: String
+
+  """Checks for equality with the object’s `price` field."""
+  price: BigFloat
+
+  """Checks for equality with the object’s `length` field."""
+  length: Int
+
+  """Checks for equality with the object’s `rating` field."""
+  rating: MpaaRating
+
+  """Checks for equality with the object’s `actors` field."""
+  actors: String
+}
+
+"""A connection to a list of `FilmList` values."""
+type FilmListsConnection {
+  """A list of `FilmList` objects."""
+  nodes: [FilmList]!
+
+  """
+  A list of edges which contains the `FilmList` and cursor to aid in pagination.
+  """
+  edges: [FilmListsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `FilmList` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `FilmList` edge in the connection."""
+type FilmListsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `FilmList` at the end of the edge."""
+  node: FilmList
+}
+
+"""Methods to use when ordering `FilmList`."""
+enum FilmListsOrderBy {
+  NATURAL
+  FID_ASC
+  FID_DESC
+  TITLE_ASC
+  TITLE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CATEGORY_ASC
+  CATEGORY_DESC
+  PRICE_ASC
+  PRICE_DESC
+  LENGTH_ASC
+  LENGTH_DESC
+  RATING_ASC
+  RATING_DESC
+  ACTORS_ASC
+  ACTORS_DESC
+}
+
+"""All input for the `filmNotInStock` mutation."""
+input FilmNotInStockInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  pFilmId: Int
+  pStoreId: Int
+}
+
+"""The output of our `filmNotInStock` mutation."""
+type FilmNotInStockPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  pFilmCounts: [Int]
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""Represents an update to a `Film`. Fields that are set will be updated."""
+input FilmPatch {
+  filmId: Int
+  title: String
+  description: String
+  releaseYear: Year
+  languageId: Int
+  rentalDuration: Int
+  rentalRate: BigFloat
+  length: Int
+  replacementCost: BigFloat
+  rating: MpaaRating
+  lastUpdate: Datetime
+  specialFeatures: [String]
+  fulltext: String
+}
+
+"""A connection to a list of `Film` values."""
+type FilmsConnection {
+  """A list of `Film` objects."""
+  nodes: [Film]!
+
+  """
+  A list of edges which contains the `Film` and cursor to aid in pagination.
+  """
+  edges: [FilmsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Film` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Film` edge in the connection."""
+type FilmsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Film` at the end of the edge."""
+  node: Film
+}
+
+"""Methods to use when ordering `Film`."""
+enum FilmsOrderBy {
+  NATURAL
+  FILM_ID_ASC
+  FILM_ID_DESC
+  TITLE_ASC
+  TITLE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  RELEASE_YEAR_ASC
+  RELEASE_YEAR_DESC
+  LANGUAGE_ID_ASC
+  LANGUAGE_ID_DESC
+  RENTAL_DURATION_ASC
+  RENTAL_DURATION_DESC
+  RENTAL_RATE_ASC
+  RENTAL_RATE_DESC
+  LENGTH_ASC
+  LENGTH_DESC
+  REPLACEMENT_COST_ASC
+  REPLACEMENT_COST_DESC
+  RATING_ASC
+  RATING_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  SPECIAL_FEATURES_ASC
+  SPECIAL_FEATURES_DESC
+  FULLTEXT_ASC
+  FULLTEXT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `getCustomerBalance` mutation."""
+input GetCustomerBalanceInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  pCustomerId: Int
+  pEffectiveDate: Datetime
+}
+
+"""The output of our `getCustomerBalance` mutation."""
+type GetCustomerBalancePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  bigFloat: BigFloat
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""A connection to a list of `Inventory` values."""
+type InventoriesConnection {
+  """A list of `Inventory` objects."""
+  nodes: [Inventory]!
+
+  """
+  A list of edges which contains the `Inventory` and cursor to aid in pagination.
+  """
+  edges: [InventoriesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Inventory` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Inventory` edge in the connection."""
+type InventoriesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Inventory` at the end of the edge."""
+  node: Inventory
+}
+
+"""Methods to use when ordering `Inventory`."""
+enum InventoriesOrderBy {
+  NATURAL
+  INVENTORY_ID_ASC
+  INVENTORY_ID_DESC
+  FILM_ID_ASC
+  FILM_ID_DESC
+  STORE_ID_ASC
+  STORE_ID_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Inventory implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  inventoryId: Int!
+  filmId: Int!
+  storeId: Int!
+  lastUpdate: Datetime!
+
+  """Reads a single `Film` that is related to this `Inventory`."""
+  filmByFilmId: Film
+
+  """Reads and enables pagination through a set of `Rental`."""
+  rentalsByInventoryId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RentalCondition
+  ): RentalsConnection!
+}
+
+"""
+A condition to be used against `Inventory` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input InventoryCondition {
+  """Checks for equality with the object’s `inventoryId` field."""
+  inventoryId: Int
+
+  """Checks for equality with the object’s `filmId` field."""
+  filmId: Int
+
+  """Checks for equality with the object’s `storeId` field."""
+  storeId: Int
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""All input for the `inventoryHeldByCustomer` mutation."""
+input InventoryHeldByCustomerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  pInventoryId: Int
+}
+
+"""The output of our `inventoryHeldByCustomer` mutation."""
+type InventoryHeldByCustomerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  integer: Int
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""An input for mutations affecting `Inventory`"""
+input InventoryInput {
+  inventoryId: Int
+  filmId: Int!
+  storeId: Int!
+  lastUpdate: Datetime
+}
+
+"""All input for the `inventoryInStock` mutation."""
+input InventoryInStockInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  pInventoryId: Int
+}
+
+"""The output of our `inventoryInStock` mutation."""
+type InventoryInStockPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  boolean: Boolean
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""
+Represents an update to a `Inventory`. Fields that are set will be updated.
+"""
+input InventoryPatch {
+  inventoryId: Int
+  filmId: Int
+  storeId: Int
+  lastUpdate: Datetime
+}
+
+type Language implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  languageId: Int!
+  name: String!
+  lastUpdate: Datetime!
+
+  """Reads and enables pagination through a set of `Film`."""
+  filmsByLanguageId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Film`."""
+    orderBy: [FilmsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmCondition
+  ): FilmsConnection!
+}
+
+"""
+A condition to be used against `Language` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input LanguageCondition {
+  """Checks for equality with the object’s `languageId` field."""
+  languageId: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `Language`"""
+input LanguageInput {
+  languageId: Int
+  name: String!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Language`. Fields that are set will be updated.
+"""
+input LanguagePatch {
+  languageId: Int
+  name: String
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `Language` values."""
+type LanguagesConnection {
+  """A list of `Language` objects."""
+  nodes: [Language]!
+
+  """
+  A list of edges which contains the `Language` and cursor to aid in pagination.
+  """
+  edges: [LanguagesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Language` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Language` edge in the connection."""
+type LanguagesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Language` at the end of the edge."""
+  node: Language
+}
+
+"""Methods to use when ordering `Language`."""
+enum LanguagesOrderBy {
+  NATURAL
+  LANGUAGE_ID_ASC
+  LANGUAGE_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MpaaRating {
+  G
+  PG
+  PG_13
+  R
+  NC_17
+}
+
+"""
+The root mutation type which contains root level fields which mutate data.
+"""
+type Mutation {
+  """Creates a single `Actor`."""
+  createActor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateActorInput!
+  ): CreateActorPayload
+
+  """Creates a single `Address`."""
+  createAddress(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAddressInput!
+  ): CreateAddressPayload
+
+  """Creates a single `Category`."""
+  createCategory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCategoryInput!
+  ): CreateCategoryPayload
+
+  """Creates a single `City`."""
+  createCity(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCityInput!
+  ): CreateCityPayload
+
+  """Creates a single `Country`."""
+  createCountry(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCountryInput!
+  ): CreateCountryPayload
+
+  """Creates a single `Customer`."""
+  createCustomer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCustomerInput!
+  ): CreateCustomerPayload
+
+  """Creates a single `Film`."""
+  createFilm(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateFilmInput!
+  ): CreateFilmPayload
+
+  """Creates a single `FilmActor`."""
+  createFilmActor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateFilmActorInput!
+  ): CreateFilmActorPayload
+
+  """Creates a single `FilmCategory`."""
+  createFilmCategory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateFilmCategoryInput!
+  ): CreateFilmCategoryPayload
+
+  """Creates a single `Inventory`."""
+  createInventory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateInventoryInput!
+  ): CreateInventoryPayload
+
+  """Creates a single `Language`."""
+  createLanguage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateLanguageInput!
+  ): CreateLanguagePayload
+
+  """Creates a single `Payment`."""
+  createPayment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreatePaymentInput!
+  ): CreatePaymentPayload
+
+  """Creates a single `Rental`."""
+  createRental(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateRentalInput!
+  ): CreateRentalPayload
+
+  """Creates a single `Staff`."""
+  createStaff(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateStaffInput!
+  ): CreateStaffPayload
+
+  """Creates a single `Store`."""
+  createStore(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateStoreInput!
+  ): CreateStorePayload
+
+  """Updates a single `Actor` using its globally unique id and a patch."""
+  updateActor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateActorInput!
+  ): UpdateActorPayload
+
+  """Updates a single `Actor` using a unique key and a patch."""
+  updateActorByActorId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateActorByActorIdInput!
+  ): UpdateActorPayload
+
+  """Updates a single `Address` using its globally unique id and a patch."""
+  updateAddress(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAddressInput!
+  ): UpdateAddressPayload
+
+  """Updates a single `Address` using a unique key and a patch."""
+  updateAddressByAddressId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAddressByAddressIdInput!
+  ): UpdateAddressPayload
+
+  """Updates a single `Category` using its globally unique id and a patch."""
+  updateCategory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCategoryInput!
+  ): UpdateCategoryPayload
+
+  """Updates a single `Category` using a unique key and a patch."""
+  updateCategoryByCategoryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCategoryByCategoryIdInput!
+  ): UpdateCategoryPayload
+
+  """Updates a single `City` using its globally unique id and a patch."""
+  updateCity(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCityInput!
+  ): UpdateCityPayload
+
+  """Updates a single `City` using a unique key and a patch."""
+  updateCityByCityId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCityByCityIdInput!
+  ): UpdateCityPayload
+
+  """Updates a single `Country` using its globally unique id and a patch."""
+  updateCountry(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCountryInput!
+  ): UpdateCountryPayload
+
+  """Updates a single `Country` using a unique key and a patch."""
+  updateCountryByCountryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCountryByCountryIdInput!
+  ): UpdateCountryPayload
+
+  """Updates a single `Customer` using its globally unique id and a patch."""
+  updateCustomer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCustomerInput!
+  ): UpdateCustomerPayload
+
+  """Updates a single `Customer` using a unique key and a patch."""
+  updateCustomerByCustomerId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCustomerByCustomerIdInput!
+  ): UpdateCustomerPayload
+
+  """Updates a single `Film` using its globally unique id and a patch."""
+  updateFilm(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFilmInput!
+  ): UpdateFilmPayload
+
+  """Updates a single `Film` using a unique key and a patch."""
+  updateFilmByFilmId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFilmByFilmIdInput!
+  ): UpdateFilmPayload
+
+  """Updates a single `FilmActor` using its globally unique id and a patch."""
+  updateFilmActor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFilmActorInput!
+  ): UpdateFilmActorPayload
+
+  """Updates a single `FilmActor` using a unique key and a patch."""
+  updateFilmActorByActorIdAndFilmId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFilmActorByActorIdAndFilmIdInput!
+  ): UpdateFilmActorPayload
+
+  """
+  Updates a single `FilmCategory` using its globally unique id and a patch.
+  """
+  updateFilmCategory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFilmCategoryInput!
+  ): UpdateFilmCategoryPayload
+
+  """Updates a single `FilmCategory` using a unique key and a patch."""
+  updateFilmCategoryByFilmIdAndCategoryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFilmCategoryByFilmIdAndCategoryIdInput!
+  ): UpdateFilmCategoryPayload
+
+  """Updates a single `Inventory` using its globally unique id and a patch."""
+  updateInventory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateInventoryInput!
+  ): UpdateInventoryPayload
+
+  """Updates a single `Inventory` using a unique key and a patch."""
+  updateInventoryByInventoryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateInventoryByInventoryIdInput!
+  ): UpdateInventoryPayload
+
+  """Updates a single `Language` using its globally unique id and a patch."""
+  updateLanguage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateLanguageInput!
+  ): UpdateLanguagePayload
+
+  """Updates a single `Language` using a unique key and a patch."""
+  updateLanguageByLanguageId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateLanguageByLanguageIdInput!
+  ): UpdateLanguagePayload
+
+  """Updates a single `Payment` using its globally unique id and a patch."""
+  updatePayment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePaymentInput!
+  ): UpdatePaymentPayload
+
+  """Updates a single `Payment` using a unique key and a patch."""
+  updatePaymentByPaymentId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePaymentByPaymentIdInput!
+  ): UpdatePaymentPayload
+
+  """Updates a single `Rental` using its globally unique id and a patch."""
+  updateRental(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRentalInput!
+  ): UpdateRentalPayload
+
+  """Updates a single `Rental` using a unique key and a patch."""
+  updateRentalByRentalId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRentalByRentalIdInput!
+  ): UpdateRentalPayload
+
+  """Updates a single `Staff` using its globally unique id and a patch."""
+  updateStaff(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateStaffInput!
+  ): UpdateStaffPayload
+
+  """Updates a single `Staff` using a unique key and a patch."""
+  updateStaffByStaffId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateStaffByStaffIdInput!
+  ): UpdateStaffPayload
+
+  """Updates a single `Store` using its globally unique id and a patch."""
+  updateStore(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateStoreInput!
+  ): UpdateStorePayload
+
+  """Updates a single `Store` using a unique key and a patch."""
+  updateStoreByStoreId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateStoreByStoreIdInput!
+  ): UpdateStorePayload
+
+  """Deletes a single `Actor` using its globally unique id."""
+  deleteActor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteActorInput!
+  ): DeleteActorPayload
+
+  """Deletes a single `Actor` using a unique key."""
+  deleteActorByActorId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteActorByActorIdInput!
+  ): DeleteActorPayload
+
+  """Deletes a single `Address` using its globally unique id."""
+  deleteAddress(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAddressInput!
+  ): DeleteAddressPayload
+
+  """Deletes a single `Address` using a unique key."""
+  deleteAddressByAddressId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAddressByAddressIdInput!
+  ): DeleteAddressPayload
+
+  """Deletes a single `Category` using its globally unique id."""
+  deleteCategory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCategoryInput!
+  ): DeleteCategoryPayload
+
+  """Deletes a single `Category` using a unique key."""
+  deleteCategoryByCategoryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCategoryByCategoryIdInput!
+  ): DeleteCategoryPayload
+
+  """Deletes a single `City` using its globally unique id."""
+  deleteCity(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCityInput!
+  ): DeleteCityPayload
+
+  """Deletes a single `City` using a unique key."""
+  deleteCityByCityId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCityByCityIdInput!
+  ): DeleteCityPayload
+
+  """Deletes a single `Country` using its globally unique id."""
+  deleteCountry(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCountryInput!
+  ): DeleteCountryPayload
+
+  """Deletes a single `Country` using a unique key."""
+  deleteCountryByCountryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCountryByCountryIdInput!
+  ): DeleteCountryPayload
+
+  """Deletes a single `Customer` using its globally unique id."""
+  deleteCustomer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCustomerInput!
+  ): DeleteCustomerPayload
+
+  """Deletes a single `Customer` using a unique key."""
+  deleteCustomerByCustomerId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCustomerByCustomerIdInput!
+  ): DeleteCustomerPayload
+
+  """Deletes a single `Film` using its globally unique id."""
+  deleteFilm(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFilmInput!
+  ): DeleteFilmPayload
+
+  """Deletes a single `Film` using a unique key."""
+  deleteFilmByFilmId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFilmByFilmIdInput!
+  ): DeleteFilmPayload
+
+  """Deletes a single `FilmActor` using its globally unique id."""
+  deleteFilmActor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFilmActorInput!
+  ): DeleteFilmActorPayload
+
+  """Deletes a single `FilmActor` using a unique key."""
+  deleteFilmActorByActorIdAndFilmId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFilmActorByActorIdAndFilmIdInput!
+  ): DeleteFilmActorPayload
+
+  """Deletes a single `FilmCategory` using its globally unique id."""
+  deleteFilmCategory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFilmCategoryInput!
+  ): DeleteFilmCategoryPayload
+
+  """Deletes a single `FilmCategory` using a unique key."""
+  deleteFilmCategoryByFilmIdAndCategoryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFilmCategoryByFilmIdAndCategoryIdInput!
+  ): DeleteFilmCategoryPayload
+
+  """Deletes a single `Inventory` using its globally unique id."""
+  deleteInventory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteInventoryInput!
+  ): DeleteInventoryPayload
+
+  """Deletes a single `Inventory` using a unique key."""
+  deleteInventoryByInventoryId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteInventoryByInventoryIdInput!
+  ): DeleteInventoryPayload
+
+  """Deletes a single `Language` using its globally unique id."""
+  deleteLanguage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteLanguageInput!
+  ): DeleteLanguagePayload
+
+  """Deletes a single `Language` using a unique key."""
+  deleteLanguageByLanguageId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteLanguageByLanguageIdInput!
+  ): DeleteLanguagePayload
+
+  """Deletes a single `Payment` using its globally unique id."""
+  deletePayment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePaymentInput!
+  ): DeletePaymentPayload
+
+  """Deletes a single `Payment` using a unique key."""
+  deletePaymentByPaymentId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePaymentByPaymentIdInput!
+  ): DeletePaymentPayload
+
+  """Deletes a single `Rental` using its globally unique id."""
+  deleteRental(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteRentalInput!
+  ): DeleteRentalPayload
+
+  """Deletes a single `Rental` using a unique key."""
+  deleteRentalByRentalId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteRentalByRentalIdInput!
+  ): DeleteRentalPayload
+
+  """Deletes a single `Staff` using its globally unique id."""
+  deleteStaff(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteStaffInput!
+  ): DeleteStaffPayload
+
+  """Deletes a single `Staff` using a unique key."""
+  deleteStaffByStaffId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteStaffByStaffIdInput!
+  ): DeleteStaffPayload
+
+  """Deletes a single `Store` using its globally unique id."""
+  deleteStore(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteStoreInput!
+  ): DeleteStorePayload
+
+  """Deletes a single `Store` using a unique key."""
+  deleteStoreByStoreId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteStoreByStoreIdInput!
+  ): DeleteStorePayload
+  filmInStock(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: FilmInStockInput!
+  ): FilmInStockPayload
+  filmNotInStock(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: FilmNotInStockInput!
+  ): FilmNotInStockPayload
+  getCustomerBalance(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: GetCustomerBalanceInput!
+  ): GetCustomerBalancePayload
+  inventoryHeldByCustomer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: InventoryHeldByCustomerInput!
+  ): InventoryHeldByCustomerPayload
+  inventoryInStock(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: InventoryInStockInput!
+  ): InventoryInStockPayload
+  rewardsReport(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: RewardsReportInput!
+  ): RewardsReportPayload
+}
+
+type NicerButSlowerFilmList {
+  fid: Int
+  title: String
+  description: String
+  category: String
+  price: BigFloat
+  length: Int
+  rating: MpaaRating
+  actors: String
+}
+
+"""
+A condition to be used against `NicerButSlowerFilmList` object types. All fields
+are tested for equality and combined with a logical ‘and.’
+"""
+input NicerButSlowerFilmListCondition {
+  """Checks for equality with the object’s `fid` field."""
+  fid: Int
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `category` field."""
+  category: String
+
+  """Checks for equality with the object’s `price` field."""
+  price: BigFloat
+
+  """Checks for equality with the object’s `length` field."""
+  length: Int
+
+  """Checks for equality with the object’s `rating` field."""
+  rating: MpaaRating
+
+  """Checks for equality with the object’s `actors` field."""
+  actors: String
+}
+
+"""A connection to a list of `NicerButSlowerFilmList` values."""
+type NicerButSlowerFilmListsConnection {
+  """A list of `NicerButSlowerFilmList` objects."""
+  nodes: [NicerButSlowerFilmList]!
+
+  """
+  A list of edges which contains the `NicerButSlowerFilmList` and cursor to aid in pagination.
+  """
+  edges: [NicerButSlowerFilmListsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `NicerButSlowerFilmList` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `NicerButSlowerFilmList` edge in the connection."""
+type NicerButSlowerFilmListsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `NicerButSlowerFilmList` at the end of the edge."""
+  node: NicerButSlowerFilmList
+}
+
+"""Methods to use when ordering `NicerButSlowerFilmList`."""
+enum NicerButSlowerFilmListsOrderBy {
+  NATURAL
+  FID_ASC
+  FID_DESC
+  TITLE_ASC
+  TITLE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CATEGORY_ASC
+  CATEGORY_DESC
+  PRICE_ASC
+  PRICE_DESC
+  LENGTH_ASC
+  LENGTH_DESC
+  RATING_ASC
+  RATING_DESC
+  ACTORS_ASC
+  ACTORS_DESC
+}
+
+"""An object with a globally unique `ID`."""
+interface Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+type Payment implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  paymentId: Int!
+  customerId: Int!
+  staffId: Int!
+  rentalId: Int!
+  amount: BigFloat!
+  paymentDate: Datetime!
+
+  """Reads a single `Customer` that is related to this `Payment`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Payment`."""
+  staffByStaffId: Staff
+
+  """Reads a single `Rental` that is related to this `Payment`."""
+  rentalByRentalId: Rental
+}
+
+"""
+A condition to be used against `Payment` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input PaymentCondition {
+  """Checks for equality with the object’s `paymentId` field."""
+  paymentId: Int
+
+  """Checks for equality with the object’s `customerId` field."""
+  customerId: Int
+
+  """Checks for equality with the object’s `staffId` field."""
+  staffId: Int
+
+  """Checks for equality with the object’s `rentalId` field."""
+  rentalId: Int
+
+  """Checks for equality with the object’s `amount` field."""
+  amount: BigFloat
+
+  """Checks for equality with the object’s `paymentDate` field."""
+  paymentDate: Datetime
+}
+
+"""An input for mutations affecting `Payment`"""
+input PaymentInput {
+  paymentId: Int
+  customerId: Int!
+  staffId: Int!
+  rentalId: Int!
+  amount: BigFloat!
+  paymentDate: Datetime!
+}
+
+"""
+Represents an update to a `Payment`. Fields that are set will be updated.
+"""
+input PaymentPatch {
+  paymentId: Int
+  customerId: Int
+  staffId: Int
+  rentalId: Int
+  amount: BigFloat
+  paymentDate: Datetime
+}
+
+"""A connection to a list of `Payment` values."""
+type PaymentsConnection {
+  """A list of `Payment` objects."""
+  nodes: [Payment]!
+
+  """
+  A list of edges which contains the `Payment` and cursor to aid in pagination.
+  """
+  edges: [PaymentsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Payment` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Payment` edge in the connection."""
+type PaymentsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Payment` at the end of the edge."""
+  node: Payment
+}
+
+"""Methods to use when ordering `Payment`."""
+enum PaymentsOrderBy {
+  NATURAL
+  PAYMENT_ID_ASC
+  PAYMENT_ID_DESC
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  RENTAL_ID_ASC
+  RENTAL_ID_DESC
+  AMOUNT_ASC
+  AMOUNT_DESC
+  PAYMENT_DATE_ASC
+  PAYMENT_DATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""The root query type which gives access points into the data universe."""
+type Query implements Node {
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
+
+  """Reads and enables pagination through a set of `Actor`."""
+  allActors(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Actor`."""
+    orderBy: [ActorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ActorCondition
+  ): ActorsConnection
+
+  """Reads and enables pagination through a set of `ActorInfo`."""
+  allActorInfos(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `ActorInfo`."""
+    orderBy: [ActorInfosOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ActorInfoCondition
+  ): ActorInfosConnection
+
+  """Reads and enables pagination through a set of `Address`."""
+  allAddresses(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Address`."""
+    orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AddressCondition
+  ): AddressesConnection
+
+  """Reads and enables pagination through a set of `Category`."""
+  allCategories(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Category`."""
+    orderBy: [CategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CategoryCondition
+  ): CategoriesConnection
+
+  """Reads and enables pagination through a set of `City`."""
+  allCities(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `City`."""
+    orderBy: [CitiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CityCondition
+  ): CitiesConnection
+
+  """Reads and enables pagination through a set of `Country`."""
+  allCountries(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Country`."""
+    orderBy: [CountriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CountryCondition
+  ): CountriesConnection
+
+  """Reads and enables pagination through a set of `Customer`."""
+  allCustomers(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Customer`."""
+    orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CustomerCondition
+  ): CustomersConnection
+
+  """Reads and enables pagination through a set of `CustomerList`."""
+  allCustomerLists(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CustomerList`."""
+    orderBy: [CustomerListsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CustomerListCondition
+  ): CustomerListsConnection
+
+  """Reads and enables pagination through a set of `Film`."""
+  allFilms(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Film`."""
+    orderBy: [FilmsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmCondition
+  ): FilmsConnection
+
+  """Reads and enables pagination through a set of `FilmActor`."""
+  allFilmActors(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmActor`."""
+    orderBy: [FilmActorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmActorCondition
+  ): FilmActorsConnection
+
+  """Reads and enables pagination through a set of `FilmCategory`."""
+  allFilmCategories(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmCategory`."""
+    orderBy: [FilmCategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmCategoryCondition
+  ): FilmCategoriesConnection
+
+  """Reads and enables pagination through a set of `FilmList`."""
+  allFilmLists(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `FilmList`."""
+    orderBy: [FilmListsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FilmListCondition
+  ): FilmListsConnection
+
+  """Reads and enables pagination through a set of `Inventory`."""
+  allInventories(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Inventory`."""
+    orderBy: [InventoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: InventoryCondition
+  ): InventoriesConnection
+
+  """Reads and enables pagination through a set of `Language`."""
+  allLanguages(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Language`."""
+    orderBy: [LanguagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: LanguageCondition
+  ): LanguagesConnection
+
+  """
+  Reads and enables pagination through a set of `NicerButSlowerFilmList`.
+  """
+  allNicerButSlowerFilmLists(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `NicerButSlowerFilmList`."""
+    orderBy: [NicerButSlowerFilmListsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: NicerButSlowerFilmListCondition
+  ): NicerButSlowerFilmListsConnection
+
+  """Reads and enables pagination through a set of `Payment`."""
+  allPayments(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PaymentCondition
+  ): PaymentsConnection
+
+  """Reads and enables pagination through a set of `Rental`."""
+  allRentals(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RentalCondition
+  ): RentalsConnection
+
+  """Reads and enables pagination through a set of `SalesByFilmCategory`."""
+  allSalesByFilmCategories(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SalesByFilmCategory`."""
+    orderBy: [SalesByFilmCategoriesOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SalesByFilmCategoryCondition
+  ): SalesByFilmCategoriesConnection
+
+  """Reads and enables pagination through a set of `SalesByStore`."""
+  allSalesByStores(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SalesByStore`."""
+    orderBy: [SalesByStoresOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SalesByStoreCondition
+  ): SalesByStoresConnection
+
+  """Reads and enables pagination through a set of `Staff`."""
+  allStaff(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Staff`."""
+    orderBy: [StaffOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StaffCondition
+  ): StaffConnection
+
+  """Reads and enables pagination through a set of `StaffList`."""
+  allStaffLists(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `StaffList`."""
+    orderBy: [StaffListsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StaffListCondition
+  ): StaffListsConnection
+
+  """Reads and enables pagination through a set of `Store`."""
+  allStores(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Store`."""
+    orderBy: [StoresOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StoreCondition
+  ): StoresConnection
+  actorByActorId(actorId: Int!): Actor
+  addressByAddressId(addressId: Int!): Address
+  categoryByCategoryId(categoryId: Int!): Category
+  cityByCityId(cityId: Int!): City
+  countryByCountryId(countryId: Int!): Country
+  customerByCustomerId(customerId: Int!): Customer
+  filmByFilmId(filmId: Int!): Film
+  filmActorByActorIdAndFilmId(actorId: Int!, filmId: Int!): FilmActor
+  filmCategoryByFilmIdAndCategoryId(filmId: Int!, categoryId: Int!): FilmCategory
+  inventoryByInventoryId(inventoryId: Int!): Inventory
+  languageByLanguageId(languageId: Int!): Language
+  paymentByPaymentId(paymentId: Int!): Payment
+  rentalByRentalId(rentalId: Int!): Rental
+  staffByStaffId(staffId: Int!): Staff
+  storeByStoreId(storeId: Int!): Store
+  _groupConcat(arg0: String, arg1: String): String
+  lastDay(arg0: Datetime!): Date
+
+  """Reads a single `Actor` using its globally unique `ID`."""
+  actor(
+    """The globally unique `ID` to be used in selecting a single `Actor`."""
+    nodeId: ID!
+  ): Actor
+
+  """Reads a single `Address` using its globally unique `ID`."""
+  address(
+    """The globally unique `ID` to be used in selecting a single `Address`."""
+    nodeId: ID!
+  ): Address
+
+  """Reads a single `Category` using its globally unique `ID`."""
+  category(
+    """The globally unique `ID` to be used in selecting a single `Category`."""
+    nodeId: ID!
+  ): Category
+
+  """Reads a single `City` using its globally unique `ID`."""
+  city(
+    """The globally unique `ID` to be used in selecting a single `City`."""
+    nodeId: ID!
+  ): City
+
+  """Reads a single `Country` using its globally unique `ID`."""
+  country(
+    """The globally unique `ID` to be used in selecting a single `Country`."""
+    nodeId: ID!
+  ): Country
+
+  """Reads a single `Customer` using its globally unique `ID`."""
+  customer(
+    """The globally unique `ID` to be used in selecting a single `Customer`."""
+    nodeId: ID!
+  ): Customer
+
+  """Reads a single `Film` using its globally unique `ID`."""
+  film(
+    """The globally unique `ID` to be used in selecting a single `Film`."""
+    nodeId: ID!
+  ): Film
+
+  """Reads a single `FilmActor` using its globally unique `ID`."""
+  filmActor(
+    """The globally unique `ID` to be used in selecting a single `FilmActor`."""
+    nodeId: ID!
+  ): FilmActor
+
+  """Reads a single `FilmCategory` using its globally unique `ID`."""
+  filmCategory(
+    """
+    The globally unique `ID` to be used in selecting a single `FilmCategory`.
+    """
+    nodeId: ID!
+  ): FilmCategory
+
+  """Reads a single `Inventory` using its globally unique `ID`."""
+  inventory(
+    """The globally unique `ID` to be used in selecting a single `Inventory`."""
+    nodeId: ID!
+  ): Inventory
+
+  """Reads a single `Language` using its globally unique `ID`."""
+  language(
+    """The globally unique `ID` to be used in selecting a single `Language`."""
+    nodeId: ID!
+  ): Language
+
+  """Reads a single `Payment` using its globally unique `ID`."""
+  payment(
+    """The globally unique `ID` to be used in selecting a single `Payment`."""
+    nodeId: ID!
+  ): Payment
+
+  """Reads a single `Rental` using its globally unique `ID`."""
+  rental(
+    """The globally unique `ID` to be used in selecting a single `Rental`."""
+    nodeId: ID!
+  ): Rental
+
+  """Reads a single `Staff` using its globally unique `ID`."""
+  staff(
+    """The globally unique `ID` to be used in selecting a single `Staff`."""
+    nodeId: ID!
+  ): Staff
+
+  """Reads a single `Store` using its globally unique `ID`."""
+  store(
+    """The globally unique `ID` to be used in selecting a single `Store`."""
+    nodeId: ID!
+  ): Store
+}
+
+type Rental implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  rentalId: Int!
+  rentalDate: Datetime!
+  inventoryId: Int!
+  customerId: Int!
+  returnDate: Datetime
+  staffId: Int!
+  lastUpdate: Datetime!
+
+  """Reads a single `Inventory` that is related to this `Rental`."""
+  inventoryByInventoryId: Inventory
+
+  """Reads a single `Customer` that is related to this `Rental`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Rental`."""
+  staffByStaffId: Staff
+
+  """Reads and enables pagination through a set of `Payment`."""
+  paymentsByRentalId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PaymentCondition
+  ): PaymentsConnection!
+}
+
+"""
+A condition to be used against `Rental` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input RentalCondition {
+  """Checks for equality with the object’s `rentalId` field."""
+  rentalId: Int
+
+  """Checks for equality with the object’s `rentalDate` field."""
+  rentalDate: Datetime
+
+  """Checks for equality with the object’s `inventoryId` field."""
+  inventoryId: Int
+
+  """Checks for equality with the object’s `customerId` field."""
+  customerId: Int
+
+  """Checks for equality with the object’s `returnDate` field."""
+  returnDate: Datetime
+
+  """Checks for equality with the object’s `staffId` field."""
+  staffId: Int
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `Rental`"""
+input RentalInput {
+  rentalId: Int
+  rentalDate: Datetime!
+  inventoryId: Int!
+  customerId: Int!
+  returnDate: Datetime
+  staffId: Int!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Rental`. Fields that are set will be updated.
+"""
+input RentalPatch {
+  rentalId: Int
+  rentalDate: Datetime
+  inventoryId: Int
+  customerId: Int
+  returnDate: Datetime
+  staffId: Int
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `Rental` values."""
+type RentalsConnection {
+  """A list of `Rental` objects."""
+  nodes: [Rental]!
+
+  """
+  A list of edges which contains the `Rental` and cursor to aid in pagination.
+  """
+  edges: [RentalsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Rental` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Rental` edge in the connection."""
+type RentalsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Rental` at the end of the edge."""
+  node: Rental
+}
+
+"""Methods to use when ordering `Rental`."""
+enum RentalsOrderBy {
+  NATURAL
+  RENTAL_ID_ASC
+  RENTAL_ID_DESC
+  RENTAL_DATE_ASC
+  RENTAL_DATE_DESC
+  INVENTORY_ID_ASC
+  INVENTORY_ID_DESC
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  RETURN_DATE_ASC
+  RETURN_DATE_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `rewardsReport` mutation."""
+input RewardsReportInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  minMonthlyPurchases: Int
+  minDollarAmountPurchased: BigFloat
+}
+
+"""The output of our `rewardsReport` mutation."""
+type RewardsReportPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  customers: [Customer]
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""A connection to a list of `SalesByFilmCategory` values."""
+type SalesByFilmCategoriesConnection {
+  """A list of `SalesByFilmCategory` objects."""
+  nodes: [SalesByFilmCategory]!
+
+  """
+  A list of edges which contains the `SalesByFilmCategory` and cursor to aid in pagination.
+  """
+  edges: [SalesByFilmCategoriesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `SalesByFilmCategory` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `SalesByFilmCategory` edge in the connection."""
+type SalesByFilmCategoriesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `SalesByFilmCategory` at the end of the edge."""
+  node: SalesByFilmCategory
+}
+
+"""Methods to use when ordering `SalesByFilmCategory`."""
+enum SalesByFilmCategoriesOrderBy {
+  NATURAL
+  CATEGORY_ASC
+  CATEGORY_DESC
+  TOTAL_SALES_ASC
+  TOTAL_SALES_DESC
+}
+
+type SalesByFilmCategory {
+  category: String
+  totalSales: BigFloat
+}
+
+"""
+A condition to be used against `SalesByFilmCategory` object types. All fields
+are tested for equality and combined with a logical ‘and.’
+"""
+input SalesByFilmCategoryCondition {
+  """Checks for equality with the object’s `category` field."""
+  category: String
+
+  """Checks for equality with the object’s `totalSales` field."""
+  totalSales: BigFloat
+}
+
+type SalesByStore {
+  store: String
+  manager: String
+  totalSales: BigFloat
+}
+
+"""
+A condition to be used against `SalesByStore` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input SalesByStoreCondition {
+  """Checks for equality with the object’s `store` field."""
+  store: String
+
+  """Checks for equality with the object’s `manager` field."""
+  manager: String
+
+  """Checks for equality with the object’s `totalSales` field."""
+  totalSales: BigFloat
+}
+
+"""A connection to a list of `SalesByStore` values."""
+type SalesByStoresConnection {
+  """A list of `SalesByStore` objects."""
+  nodes: [SalesByStore]!
+
+  """
+  A list of edges which contains the `SalesByStore` and cursor to aid in pagination.
+  """
+  edges: [SalesByStoresEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `SalesByStore` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `SalesByStore` edge in the connection."""
+type SalesByStoresEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `SalesByStore` at the end of the edge."""
+  node: SalesByStore
+}
+
+"""Methods to use when ordering `SalesByStore`."""
+enum SalesByStoresOrderBy {
+  NATURAL
+  STORE_ASC
+  STORE_DESC
+  MANAGER_ASC
+  MANAGER_DESC
+  TOTAL_SALES_ASC
+  TOTAL_SALES_DESC
+}
+
+type Staff implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  staffId: Int!
+  firstName: String!
+  lastName: String!
+  addressId: Int!
+  email: String
+  storeId: Int!
+  active: Boolean!
+  username: String!
+  password: String
+  lastUpdate: Datetime!
+  picture: String
+
+  """Reads a single `Address` that is related to this `Staff`."""
+  addressByAddressId: Address
+
+  """Reads and enables pagination through a set of `Payment`."""
+  paymentsByStaffId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PaymentCondition
+  ): PaymentsConnection!
+
+  """Reads and enables pagination through a set of `Rental`."""
+  rentalsByStaffId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RentalCondition
+  ): RentalsConnection!
+
+  """Reads and enables pagination through a set of `Store`."""
+  storesByManagerStaffId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Store`."""
+    orderBy: [StoresOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StoreCondition
+  ): StoresConnection!
+}
+
+"""
+A condition to be used against `Staff` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input StaffCondition {
+  """Checks for equality with the object’s `staffId` field."""
+  staffId: Int
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `addressId` field."""
+  addressId: Int
+
+  """Checks for equality with the object’s `email` field."""
+  email: String
+
+  """Checks for equality with the object’s `storeId` field."""
+  storeId: Int
+
+  """Checks for equality with the object’s `active` field."""
+  active: Boolean
+
+  """Checks for equality with the object’s `username` field."""
+  username: String
+
+  """Checks for equality with the object’s `password` field."""
+  password: String
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+
+  """Checks for equality with the object’s `picture` field."""
+  picture: String
+}
+
+"""A connection to a list of `Staff` values."""
+type StaffConnection {
+  """A list of `Staff` objects."""
+  nodes: [Staff]!
+
+  """
+  A list of edges which contains the `Staff` and cursor to aid in pagination.
+  """
+  edges: [StaffEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Staff` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Staff` edge in the connection."""
+type StaffEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Staff` at the end of the edge."""
+  node: Staff
+}
+
+"""An input for mutations affecting `Staff`"""
+input StaffInput {
+  staffId: Int
+  firstName: String!
+  lastName: String!
+  addressId: Int!
+  email: String
+  storeId: Int!
+  active: Boolean
+  username: String!
+  password: String
+  lastUpdate: Datetime
+  picture: String
+}
+
+type StaffList {
+  id: Int
+  name: String
+  address: String
+  zipCode: String
+  phone: String
+  city: String
+  country: String
+  sid: Int
+}
+
+"""
+A condition to be used against `StaffList` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input StaffListCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `address` field."""
+  address: String
+
+  """Checks for equality with the object’s `zipCode` field."""
+  zipCode: String
+
+  """Checks for equality with the object’s `phone` field."""
+  phone: String
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `country` field."""
+  country: String
+
+  """Checks for equality with the object’s `sid` field."""
+  sid: Int
+}
+
+"""A connection to a list of `StaffList` values."""
+type StaffListsConnection {
+  """A list of `StaffList` objects."""
+  nodes: [StaffList]!
+
+  """
+  A list of edges which contains the `StaffList` and cursor to aid in pagination.
+  """
+  edges: [StaffListsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `StaffList` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `StaffList` edge in the connection."""
+type StaffListsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `StaffList` at the end of the edge."""
+  node: StaffList
+}
+
+"""Methods to use when ordering `StaffList`."""
+enum StaffListsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  ADDRESS_ASC
+  ADDRESS_DESC
+  ZIP_CODE_ASC
+  ZIP_CODE_DESC
+  PHONE_ASC
+  PHONE_DESC
+  CITY_ASC
+  CITY_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
+  SID_ASC
+  SID_DESC
+}
+
+"""Methods to use when ordering `Staff`."""
+enum StaffOrderBy {
+  NATURAL
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  ADDRESS_ID_ASC
+  ADDRESS_ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  STORE_ID_ASC
+  STORE_ID_DESC
+  ACTIVE_ASC
+  ACTIVE_DESC
+  USERNAME_ASC
+  USERNAME_DESC
+  PASSWORD_ASC
+  PASSWORD_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PICTURE_ASC
+  PICTURE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+Represents an update to a `Staff`. Fields that are set will be updated.
+"""
+input StaffPatch {
+  staffId: Int
+  firstName: String
+  lastName: String
+  addressId: Int
+  email: String
+  storeId: Int
+  active: Boolean
+  username: String
+  password: String
+  lastUpdate: Datetime
+  picture: String
+}
+
+type Store implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  storeId: Int!
+  managerStaffId: Int!
+  addressId: Int!
+  lastUpdate: Datetime!
+
+  """Reads a single `Staff` that is related to this `Store`."""
+  staffByManagerStaffId: Staff
+
+  """Reads a single `Address` that is related to this `Store`."""
+  addressByAddressId: Address
+}
+
+"""
+A condition to be used against `Store` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input StoreCondition {
+  """Checks for equality with the object’s `storeId` field."""
+  storeId: Int
+
+  """Checks for equality with the object’s `managerStaffId` field."""
+  managerStaffId: Int
+
+  """Checks for equality with the object’s `addressId` field."""
+  addressId: Int
+
+  """Checks for equality with the object’s `lastUpdate` field."""
+  lastUpdate: Datetime
+}
+
+"""An input for mutations affecting `Store`"""
+input StoreInput {
+  storeId: Int
+  managerStaffId: Int!
+  addressId: Int!
+  lastUpdate: Datetime
+}
+
+"""
+Represents an update to a `Store`. Fields that are set will be updated.
+"""
+input StorePatch {
+  storeId: Int
+  managerStaffId: Int
+  addressId: Int
+  lastUpdate: Datetime
+}
+
+"""A connection to a list of `Store` values."""
+type StoresConnection {
+  """A list of `Store` objects."""
+  nodes: [Store]!
+
+  """
+  A list of edges which contains the `Store` and cursor to aid in pagination.
+  """
+  edges: [StoresEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Store` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Store` edge in the connection."""
+type StoresEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Store` at the end of the edge."""
+  node: Store
+}
+
+"""Methods to use when ordering `Store`."""
+enum StoresOrderBy {
+  NATURAL
+  STORE_ID_ASC
+  STORE_ID_DESC
+  MANAGER_STAFF_ID_ASC
+  MANAGER_STAFF_ID_DESC
+  ADDRESS_ID_ASC
+  ADDRESS_ID_DESC
+  LAST_UPDATE_ASC
+  LAST_UPDATE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `updateActorByActorId` mutation."""
+input UpdateActorByActorIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Actor` being updated.
+  """
+  actorPatch: ActorPatch!
+  actorId: Int!
+}
+
+"""All input for the `updateActor` mutation."""
+input UpdateActorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Actor` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Actor` being updated.
+  """
+  actorPatch: ActorPatch!
+}
+
+"""The output of our update `Actor` mutation."""
+type UpdateActorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Actor` that was updated by this mutation."""
+  actor: Actor
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Actor`. May be used by Relay 1."""
+  actorEdge(
+    """The method to use when ordering `Actor`."""
+    orderBy: [ActorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ActorsEdge
+}
+
+"""All input for the `updateAddressByAddressId` mutation."""
+input UpdateAddressByAddressIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Address` being updated.
+  """
+  addressPatch: AddressPatch!
+  addressId: Int!
+}
+
+"""All input for the `updateAddress` mutation."""
+input UpdateAddressInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Address` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Address` being updated.
+  """
+  addressPatch: AddressPatch!
+}
+
+"""The output of our update `Address` mutation."""
+type UpdateAddressPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Address` that was updated by this mutation."""
+  address: Address
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `City` that is related to this `Address`."""
+  cityByCityId: City
+
+  """An edge for our `Address`. May be used by Relay 1."""
+  addressEdge(
+    """The method to use when ordering `Address`."""
+    orderBy: [AddressesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AddressesEdge
+}
+
+"""All input for the `updateCategoryByCategoryId` mutation."""
+input UpdateCategoryByCategoryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Category` being updated.
+  """
+  categoryPatch: CategoryPatch!
+  categoryId: Int!
+}
+
+"""All input for the `updateCategory` mutation."""
+input UpdateCategoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Category` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Category` being updated.
+  """
+  categoryPatch: CategoryPatch!
+}
+
+"""The output of our update `Category` mutation."""
+type UpdateCategoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Category` that was updated by this mutation."""
+  category: Category
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Category`. May be used by Relay 1."""
+  categoryEdge(
+    """The method to use when ordering `Category`."""
+    orderBy: [CategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CategoriesEdge
+}
+
+"""All input for the `updateCityByCityId` mutation."""
+input UpdateCityByCityIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `City` being updated.
+  """
+  cityPatch: CityPatch!
+  cityId: Int!
+}
+
+"""All input for the `updateCity` mutation."""
+input UpdateCityInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `City` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `City` being updated.
+  """
+  cityPatch: CityPatch!
+}
+
+"""The output of our update `City` mutation."""
+type UpdateCityPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `City` that was updated by this mutation."""
+  city: City
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Country` that is related to this `City`."""
+  countryByCountryId: Country
+
+  """An edge for our `City`. May be used by Relay 1."""
+  cityEdge(
+    """The method to use when ordering `City`."""
+    orderBy: [CitiesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CitiesEdge
+}
+
+"""All input for the `updateCountryByCountryId` mutation."""
+input UpdateCountryByCountryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Country` being updated.
+  """
+  countryPatch: CountryPatch!
+  countryId: Int!
+}
+
+"""All input for the `updateCountry` mutation."""
+input UpdateCountryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Country` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Country` being updated.
+  """
+  countryPatch: CountryPatch!
+}
+
+"""The output of our update `Country` mutation."""
+type UpdateCountryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Country` that was updated by this mutation."""
+  country: Country
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Country`. May be used by Relay 1."""
+  countryEdge(
+    """The method to use when ordering `Country`."""
+    orderBy: [CountriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CountriesEdge
+}
+
+"""All input for the `updateCustomerByCustomerId` mutation."""
+input UpdateCustomerByCustomerIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Customer` being updated.
+  """
+  customerPatch: CustomerPatch!
+  customerId: Int!
+}
+
+"""All input for the `updateCustomer` mutation."""
+input UpdateCustomerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Customer` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Customer` being updated.
+  """
+  customerPatch: CustomerPatch!
+}
+
+"""The output of our update `Customer` mutation."""
+type UpdateCustomerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Customer` that was updated by this mutation."""
+  customer: Customer
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Address` that is related to this `Customer`."""
+  addressByAddressId: Address
+
+  """An edge for our `Customer`. May be used by Relay 1."""
+  customerEdge(
+    """The method to use when ordering `Customer`."""
+    orderBy: [CustomersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CustomersEdge
+}
+
+"""All input for the `updateFilmActorByActorIdAndFilmId` mutation."""
+input UpdateFilmActorByActorIdAndFilmIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `FilmActor` being updated.
+  """
+  filmActorPatch: FilmActorPatch!
+  actorId: Int!
+  filmId: Int!
+}
+
+"""All input for the `updateFilmActor` mutation."""
+input UpdateFilmActorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `FilmActor` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `FilmActor` being updated.
+  """
+  filmActorPatch: FilmActorPatch!
+}
+
+"""The output of our update `FilmActor` mutation."""
+type UpdateFilmActorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `FilmActor` that was updated by this mutation."""
+  filmActor: FilmActor
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Actor` that is related to this `FilmActor`."""
+  actorByActorId: Actor
+
+  """Reads a single `Film` that is related to this `FilmActor`."""
+  filmByFilmId: Film
+
+  """An edge for our `FilmActor`. May be used by Relay 1."""
+  filmActorEdge(
+    """The method to use when ordering `FilmActor`."""
+    orderBy: [FilmActorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmActorsEdge
+}
+
+"""All input for the `updateFilmByFilmId` mutation."""
+input UpdateFilmByFilmIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Film` being updated.
+  """
+  filmPatch: FilmPatch!
+  filmId: Int!
+}
+
+"""All input for the `updateFilmCategoryByFilmIdAndCategoryId` mutation."""
+input UpdateFilmCategoryByFilmIdAndCategoryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `FilmCategory` being updated.
+  """
+  filmCategoryPatch: FilmCategoryPatch!
+  filmId: Int!
+  categoryId: Int!
+}
+
+"""All input for the `updateFilmCategory` mutation."""
+input UpdateFilmCategoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `FilmCategory` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `FilmCategory` being updated.
+  """
+  filmCategoryPatch: FilmCategoryPatch!
+}
+
+"""The output of our update `FilmCategory` mutation."""
+type UpdateFilmCategoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `FilmCategory` that was updated by this mutation."""
+  filmCategory: FilmCategory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Film` that is related to this `FilmCategory`."""
+  filmByFilmId: Film
+
+  """Reads a single `Category` that is related to this `FilmCategory`."""
+  categoryByCategoryId: Category
+
+  """An edge for our `FilmCategory`. May be used by Relay 1."""
+  filmCategoryEdge(
+    """The method to use when ordering `FilmCategory`."""
+    orderBy: [FilmCategoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmCategoriesEdge
+}
+
+"""All input for the `updateFilm` mutation."""
+input UpdateFilmInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Film` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Film` being updated.
+  """
+  filmPatch: FilmPatch!
+}
+
+"""The output of our update `Film` mutation."""
+type UpdateFilmPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Film` that was updated by this mutation."""
+  film: Film
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Language` that is related to this `Film`."""
+  languageByLanguageId: Language
+
+  """An edge for our `Film`. May be used by Relay 1."""
+  filmEdge(
+    """The method to use when ordering `Film`."""
+    orderBy: [FilmsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilmsEdge
+}
+
+"""All input for the `updateInventoryByInventoryId` mutation."""
+input UpdateInventoryByInventoryIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Inventory` being updated.
+  """
+  inventoryPatch: InventoryPatch!
+  inventoryId: Int!
+}
+
+"""All input for the `updateInventory` mutation."""
+input UpdateInventoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Inventory` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Inventory` being updated.
+  """
+  inventoryPatch: InventoryPatch!
+}
+
+"""The output of our update `Inventory` mutation."""
+type UpdateInventoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Inventory` that was updated by this mutation."""
+  inventory: Inventory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Film` that is related to this `Inventory`."""
+  filmByFilmId: Film
+
+  """An edge for our `Inventory`. May be used by Relay 1."""
+  inventoryEdge(
+    """The method to use when ordering `Inventory`."""
+    orderBy: [InventoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InventoriesEdge
+}
+
+"""All input for the `updateLanguageByLanguageId` mutation."""
+input UpdateLanguageByLanguageIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Language` being updated.
+  """
+  languagePatch: LanguagePatch!
+  languageId: Int!
+}
+
+"""All input for the `updateLanguage` mutation."""
+input UpdateLanguageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Language` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Language` being updated.
+  """
+  languagePatch: LanguagePatch!
+}
+
+"""The output of our update `Language` mutation."""
+type UpdateLanguagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Language` that was updated by this mutation."""
+  language: Language
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Language`. May be used by Relay 1."""
+  languageEdge(
+    """The method to use when ordering `Language`."""
+    orderBy: [LanguagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): LanguagesEdge
+}
+
+"""All input for the `updatePaymentByPaymentId` mutation."""
+input UpdatePaymentByPaymentIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Payment` being updated.
+  """
+  paymentPatch: PaymentPatch!
+  paymentId: Int!
+}
+
+"""All input for the `updatePayment` mutation."""
+input UpdatePaymentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Payment` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Payment` being updated.
+  """
+  paymentPatch: PaymentPatch!
+}
+
+"""The output of our update `Payment` mutation."""
+type UpdatePaymentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Payment` that was updated by this mutation."""
+  payment: Payment
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Customer` that is related to this `Payment`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Payment`."""
+  staffByStaffId: Staff
+
+  """Reads a single `Rental` that is related to this `Payment`."""
+  rentalByRentalId: Rental
+
+  """An edge for our `Payment`. May be used by Relay 1."""
+  paymentEdge(
+    """The method to use when ordering `Payment`."""
+    orderBy: [PaymentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PaymentsEdge
+}
+
+"""All input for the `updateRentalByRentalId` mutation."""
+input UpdateRentalByRentalIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Rental` being updated.
+  """
+  rentalPatch: RentalPatch!
+  rentalId: Int!
+}
+
+"""All input for the `updateRental` mutation."""
+input UpdateRentalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Rental` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Rental` being updated.
+  """
+  rentalPatch: RentalPatch!
+}
+
+"""The output of our update `Rental` mutation."""
+type UpdateRentalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Rental` that was updated by this mutation."""
+  rental: Rental
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Inventory` that is related to this `Rental`."""
+  inventoryByInventoryId: Inventory
+
+  """Reads a single `Customer` that is related to this `Rental`."""
+  customerByCustomerId: Customer
+
+  """Reads a single `Staff` that is related to this `Rental`."""
+  staffByStaffId: Staff
+
+  """An edge for our `Rental`. May be used by Relay 1."""
+  rentalEdge(
+    """The method to use when ordering `Rental`."""
+    orderBy: [RentalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RentalsEdge
+}
+
+"""All input for the `updateStaffByStaffId` mutation."""
+input UpdateStaffByStaffIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Staff` being updated.
+  """
+  staffPatch: StaffPatch!
+  staffId: Int!
+}
+
+"""All input for the `updateStaff` mutation."""
+input UpdateStaffInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Staff` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Staff` being updated.
+  """
+  staffPatch: StaffPatch!
+}
+
+"""The output of our update `Staff` mutation."""
+type UpdateStaffPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Staff` that was updated by this mutation."""
+  staff: Staff
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Address` that is related to this `Staff`."""
+  addressByAddressId: Address
+
+  """An edge for our `Staff`. May be used by Relay 1."""
+  staffEdge(
+    """The method to use when ordering `Staff`."""
+    orderBy: [StaffOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StaffEdge
+}
+
+"""All input for the `updateStoreByStoreId` mutation."""
+input UpdateStoreByStoreIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Store` being updated.
+  """
+  storePatch: StorePatch!
+  storeId: Int!
+}
+
+"""All input for the `updateStore` mutation."""
+input UpdateStoreInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Store` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Store` being updated.
+  """
+  storePatch: StorePatch!
+}
+
+"""The output of our update `Store` mutation."""
+type UpdateStorePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Store` that was updated by this mutation."""
+  store: Store
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Staff` that is related to this `Store`."""
+  staffByManagerStaffId: Staff
+
+  """Reads a single `Address` that is related to this `Store`."""
+  addressByAddressId: Address
+
+  """An edge for our `Store`. May be used by Relay 1."""
+  storeEdge(
+    """The method to use when ordering `Store`."""
+    orderBy: [StoresOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StoresEdge
+}
+
+scalar Year
+
