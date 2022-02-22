@@ -85,8 +85,6 @@ public class CustomersControllerTest {
         customerUpdated.setEmail("John.Doe@gmail.com\"");
         Mockito.when(customerRepository.save(customerUpdated)).thenReturn(customerUpdated);
         MvcResult result = mockMvc.perform(put("/customers/{id}", 1L).content(updateCustomerJson).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
-        System.out.println("result.getResponse().getContentAsString()");
-        System.out.println(result.getResponse().getContentAsString());
         Customer updatedCustomer = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Customer.class);
         // firstname, lastname and email are the only fields that can be updated via this api so check ....
         assertEquals("John", updatedCustomer.getFirst_name());
