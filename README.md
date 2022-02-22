@@ -21,8 +21,8 @@ You can start the backend rest service with
 
 However there backend application requires a database which properties are set in https://github.com/mikaka72/dvdrental-app/blob/main/src/main/resources/application.properties
 
-Those settings should work out of the box with the sample database docker container mentioned earlier (wiht "works on my mac" guarantee :) ) 
-The mvn spring-boot:run does not trigger the database container to start, so it must be running when prior the service is started.
+Those settings should work out of the box with the sample database docker container mentioned earlier (with "works on my mac" guarantee :) ) 
+The mvn spring-boot:run does not trigger the database container to start, so it must be running prior the service is started.
 
 If you want to use in memory h2 database just copy the https://github.com/mikaka72/dvdrental-app/blob/main/src/test/resources/application.properties to the /src/main/resources or do any other tweaks that you see fit.
 
