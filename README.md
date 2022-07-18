@@ -13,7 +13,7 @@ Backend application is using maven. So to build the project just run:
 
 #### mvn install 
 
-on the project root
+on the project root.
 
 You can start the backend rest service with 
 
