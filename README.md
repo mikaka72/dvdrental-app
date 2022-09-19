@@ -30,4 +30,63 @@ Application can be also bundled to single spring boot application, there is a se
 
 There is also a jib plugin configure in the pom.xml. It can be used to publish the application as an image to the azure container registry as described in https://docs.microsoft.com/en-us/azure/container-registry/container-registry-java-quickstart
 
-Of course if you do not have both frontend and backend bundeled to single application, only the backend will be included in the image. 
+Of course if you do not have both frontend and backend bundled to single application, only the backend will be included in the image. 
+
+# Event driven model experiments with Kafka.
+
+I have used this docker image https://hub.docker.com/r/spotify/kafka/
+It has both the kafka and the zookeeper configured into the same image, so it is a easy starting point.
+
+Download the docker imaage:
+
+#### docker pull spotify/kafka
+
+Create the docker container 
+
+docker run -p 2181:2181 -p 9092:9092 --name kafka-docker-container --env ADVERTISED_HOST=127.0.0.1 --env ADVERTISED_PORT=9092 spotify/kafka
+
+After the container is created use either the docker desktop to start / stop it or orchestrate it from the command line;
+
+Here some useful commands: 
+
+List  all containers:
+
+####  docker container ls --all
+
+Start container:
+
+#### docker start [CONTAINER_NAME] or  [CONTAINER ID]
+
+Check container logs:
+
+#### docker logs [CONTAINER_NAME] or  [CONTAINER ID]
+
+Tail the container logs during runtime:
+
+#### docker logs [CONTAINER_NAME] or  [CONTAINER ID]--tail 1 --follow
+
+Open bash to running container:
+
+#### docker exec -it kafka-docker-container bash
+
+In docker container bash you can configure topics in following folder:
+
+#### cd /opt/kafka_2.11-0.10.1.0/
+
+, create topic into kafka:
+
+####  ./bin/kafka-topics.sh --create --zookeeper :2181 --replication-factor 1 --partitions 1 --topic [TOPIC_NAME]
+
+
+List all the Kafka topics:
+
+#### ./bin/kafka-topics.sh --list --zookeeper :2181
+
+Describe Kafka topic: 
+
+#### ./bin/kafka-topics.sh --zookeeper :2181 --describe --topic my-topic
+
+
+
+
+

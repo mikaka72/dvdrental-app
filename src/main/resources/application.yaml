@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    password: dvdrental
+    url: jdbc:postgresql://localhost:5432/dvdrental
+    username: dvdrental
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL81Dialect
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+kafka:
+  address: "http://localhost:9092"
+app:
+  ping-topic-name: "ping-topic"
+  ping-group-name: "ping-group"
+  customer-group-name: "customer-group"
